@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="conteiner">
+            <h1>Jogo da Velha</h1>
+        </div>
+    </header>
+    <main>
+        <!-- Tabuleiro e células -->
+        <div id="tabuleiro">
+        <div class="celula" id="celula1" onclick="jogar('celula1')"></div>
+        <div class="celula" id="celula2" onclick="jogar('celula2')"></div>
+        <div class="celula" id="celula3" onclick="jogar('celula3')"></div>
+        <div class="celula" id="celula4" onclick="jogar('celula4')"></div>
+        <div class="celula" id="celula5" onclick="jogar('celula5')"></div>
+        <div class="celula" id="celula6" onclick="jogar('celula6')"></div>
+        <div class="celula" id="celula7" onclick="jogar('celula7')"></div>
+        <div class="celula" id="celula8" onclick="jogar('celula8')"></div>
+        <div class="celula" id="celula9" onclick="jogar('celula9')"></div>
+    </div>
+    <div id="btReiniciar">
+        <button onclick="reiniciarJogo()">Reiniciar Jogo</button>
+    </div>
+    </main>
+    <footer>
+        <div id="rodape">
+            <p>Desenvolvido por José Erick &copy;</p>
+            <a href="https://github.com/dragao-verde"> Link para meu GitHub</a>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

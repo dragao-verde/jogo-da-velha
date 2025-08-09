@@ -1,0 +1,75 @@
+/*
+centralizando o texto na parte superior e mudando a cor de fundo
+*/
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    background-color: #f0f0f0;
+}
+
+/*
+tornando o tabuleiro 3x3 com bordas visíveis
+*/
+
+#tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 300px;
+    height: 300px;
+    border: 2px solid #333;
+}
+
+/*
+centralizando tudo na tela
+*/
+
+body {
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+/*
+mudando a cor de fundo das células para ficarem mais visíveis
+*/
+
+.celula {
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+/*
+mudando o estilo do rodapé
+*/
+
+#rodape {
+    margin-top: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/*
+mudando o estilo do botão de reiniciar
+*/
+
+#btReiniciar {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#btReiniciar button {
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    border: inset;
+    height: 40px;
+}
