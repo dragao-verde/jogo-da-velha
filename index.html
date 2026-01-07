@@ -8,32 +8,38 @@
 </head>
 <body>
     <header>
-        <div class="conteiner">
-            <h1>Jogo da Velha</h1>
-        </div>
+        <h1>Jogo da Velha</h1>
     </header>
+
     <main>
-        <!-- Tabuleiro e células -->
-        <div id="tabuleiro">
-        <div class="celula" id="celula1" onclick="jogar('celula1')"></div>
-        <div class="celula" id="celula2" onclick="jogar('celula2')"></div>
-        <div class="celula" id="celula3" onclick="jogar('celula3')"></div>
-        <div class="celula" id="celula4" onclick="jogar('celula4')"></div>
-        <div class="celula" id="celula5" onclick="jogar('celula5')"></div>
-        <div class="celula" id="celula6" onclick="jogar('celula6')"></div>
-        <div class="celula" id="celula7" onclick="jogar('celula7')"></div>
-        <div class="celula" id="celula8" onclick="jogar('celula8')"></div>
-        <div class="celula" id="celula9" onclick="jogar('celula9')"></div>
-    </div>
-    <div id="btReiniciar">
-        <button onclick="reiniciarJogo()">Reiniciar Jogo</button>
-    </div>
-    </main>
-    <footer>
-        <div id="rodape">
-            <a href="https://github.com/dragao-verde"> Link para meu GitHub</a>
+        <div id="info">
+            <div>Placar - X: <strong id="placarX">0</strong> | O: <strong id="placarO">0</strong></div>
+            <div>Vez do jogador: <strong id="jogadorVez">X</strong></div>
+            <div>Tempo: <strong id="tempo">30</strong>s</div>
         </div>
+
+        <div id="tabuleiro">
+            <div class="celula" id="celula0" onclick="jogar(0)"></div>
+            <div class="celula" id="celula1" onclick="jogar(1)"></div>
+            <div class="celula" id="celula2" onclick="jogar(2)"></div>
+            <div class="celula" id="celula3" onclick="jogar(3)"></div>
+            <div class="celula" id="celula4" onclick="jogar(4)"></div>
+            <div class="celula" id="celula5" onclick="jogar(5)"></div>
+            <div class="celula" id="celula6" onclick="jogar(6)"></div>
+            <div class="celula" id="celula7" onclick="jogar(7)"></div>
+            <div class="celula" id="celula8" onclick="jogar(8)"></div>
+        </div>
+
+        <div id="botoes">
+            <button id="btnPausar" onclick="pausarRetomar()">Pausar</button>
+            <button onclick="reiniciarJogo()">Reiniciar Jogo</button>
+        </div>
+    </main>
+
+    <footer>
+        <p><a href="https://github.com/dragao-verde">Link para meu GitHub</a></p>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>

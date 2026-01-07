@@ -1,41 +1,58 @@
 # Jogo da Velha
 
-Um jogo da velha simples desenvolvido para praticar conceitos de programação web aprendidos na escola. Este projeto foi criado para utilizar o tempo de forma produtiva e expandir meu portfólio no GitHub.
+Um jogo da velha interativo desenvolvido com HTML, CSS e JavaScript para praticar conceitos de programação web.
 
-## Tecnologias Utilizadas
+## 🎮 Funcionalidades
 
-- HTML
-- CSS
-- JavaScript
+- ✅ Jogo da velha para 2 jogadores
+- ✅ Sistema de Melhor de 3 (Best of 3)
+- ✅ Placar em tempo real
+- ✅ Cronômetro de 30 segundos por turno
+- ✅ Pausar e retomar jogo
+- ✅ Detecção automática de vitória e empate
+- ✅ Interface simples e responsiva
 
-## Como Clonar o Repositório
+## 🛠️ Tecnologias Utilizadas
 
-Para clonar este repositório, execute o seguinte comando no terminal:
+- **HTML5** - Estrutura
+- **CSS3** - Estilos
+- **JavaScript Vanilla** - Lógica do jogo
 
+## 📋 Como Usar
+
+1. Clone o repositório:
 ```bash
 git clone https://github.com/dragao-verde/jogo-da-velha.git
 ```
 
-## Como Executar o Projeto
+2. Abra o arquivo `index.html` em seu navegador web moderno
 
-1. Navegue até a pasta do projeto clonado.
-2. Abra o arquivo `index.html` em qualquer navegador web moderno.
-3. O jogo estará pronto para jogar!
+3. Comece a jogar!
 
-## Funcionalidades
+## 🎯 Regras
 
-- Jogo da velha interativo para dois jogadores.
-- Interface simples e responsiva.
-- Detecção automática de vitória ou empate.
+- Melhor de 3: Quem vencer 2 partidas primeiro é o campeão
+- Cada jogador tem 30 segundos para fazer sua jogada
+- Clique em uma célula vazia para fazer sua jogada
+- Três símbolos iguais em linha (horizontal, vertical ou diagonal) = vitória
+- Se o tabuleiro ficar cheio sem vencedor = empate
 
-## Contribuição
+## 🎮 Como Jogar
 
-* **José Erick**
-* **José Eduardo**
-* **José Ferreira**
-* **Matheus de Souza** 3º INTIN
+1. O jogo começa automaticamente com o jogador X
+2. Clique em uma célula vazia do tabuleiro
+3. O cronômetro conta 30 segundos para cada turno
+4. Se o tempo acabar, passa para o próximo jogador
+5. Use o botão "Pausar" para pausar/retomar o jogo
+6. Use "Reiniciar Jogo" para começar uma série nova
 
+## 👥 Contribuidores
 
-## Link do pages
+- **José Erick**
+- **José Eduardo**
+- **José Ferreira**
+- **Matheus de Souza** (3º INTIN)
 
-https://dragao-verde.github.io/jogo-da-velha/
+## 🌐 Demo
+
+[Jogar Online](https://dragao-verde.github.io/jogo-da-velha/)
