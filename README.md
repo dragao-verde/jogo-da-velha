@@ -30,4 +30,7 @@ git clone https://github.com/dragao-verde/jogo-da-velha.git
 
 ## Contribuição
 
-Este projeto foi desenvolvido por mim mesmo e está disponível para fins educacionais. Sinta-se à vontade para explorar o código e sugerir melhorias.
+* **José Erick**
+* **José Eduardo**
+* **José Ferreira**
+* **Matheus de Souza** 3º INTIN
