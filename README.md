@@ -34,3 +34,8 @@ git clone https://github.com/dragao-verde/jogo-da-velha.git
 * **José Eduardo**
 * **José Ferreira**
 * **Matheus de Souza** 3º INTIN
+
+
+## Link do pages
+
+https://dragao-verde.github.io/jogo-da-velha/
