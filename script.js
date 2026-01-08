@@ -153,6 +153,46 @@ function reiniciarJogo() {
     proximaRodada();
 }
 
+// Sair do jogo e voltar para seleção de personagens
+function sairJogo() {
+    clearInterval(intervalo);
+    jogoAtivo = false;
+    jogoPausado = false;
+
+    // limpar tabuleiro e placares para começar seleção do zero
+    tabuleiro = Array(9).fill('');
+    player1.score = 0;
+    player2.score = 0;
+
+    // resetar textos/estados do botão pausar
+    const botao = document.getElementById('btnPausar');
+    if (botao) {
+        botao.textContent = 'Pausar';
+        botao.style.backgroundColor = '#333';
+    }
+
+    // limpar escolhas salvas e mostrar modal de início
+    localStorage.removeItem('jogoPlayers');
+
+    // limpar campos do modal e restaurar opções padrão
+    const nome1 = document.getElementById('nome1');
+    const nome2 = document.getElementById('nome2');
+    if (nome1) nome1.value = '';
+    if (nome2) nome2.value = '';
+
+    document.querySelectorAll('input[name="simbolo1"]').forEach(r => { r.disabled = false; });
+    document.querySelectorAll('input[name="simbolo2"]').forEach(r => { r.disabled = false; });
+    const def1 = document.querySelector('input[name="simbolo1"][value="x"]');
+    const def2 = document.querySelector('input[name="simbolo2"][value="o"]');
+    if (def1) def1.checked = true;
+    if (def2) def2.checked = true;
+
+    const modal = document.getElementById('modalInicio');
+    if (modal) modal.style.display = 'flex';
+
+    atualizarTela();
+}
+
 // Função para iniciar o jogo após seleção
 function começarJogo() {
     const nome1 = document.getElementById('nome1').value.trim() || 'Jogador 1';
@@ -222,6 +262,16 @@ function objectToRadioVal(obj) {
 
 window.addEventListener('load', () => {
     // Prefill from storage if available
+    const displayNameMap = {
+        x: 'X',
+        o: 'O',
+        capitao: 'Capitão',
+        aranha: 'Aranha',
+        hulk: 'Hulk',
+        lanterna: 'Lanterna',
+        morcego: 'Morcego',
+        superman: 'Superman'
+    };
     const saved = localStorage.getItem('jogoPlayers');
     if (saved) {
         try {
@@ -278,6 +328,24 @@ window.addEventListener('load', () => {
         }
 
         updateDisabledOptions();
+
+        // Atualizar apelido ao selecionar personagem (se campo vazio, padrão ou já era nome de personagem)
+        const isCharacterName = name => Object.values(displayNameMap).includes(name);
+        if (origin === 'simbolo1') {
+            const nomeElem = document.getElementById('nome1');
+            const display = displayNameMap[sel1] || sel1;
+            if (nomeElem) {
+                const current = nomeElem.value.trim();
+                if (!current || current.startsWith('Jogador') || isCharacterName(current)) nomeElem.value = display;
+            }
+        } else if (origin === 'simbolo2') {
+            const nomeElem = document.getElementById('nome2');
+            const display = displayNameMap[sel2] || sel2;
+            if (nomeElem) {
+                const current = nomeElem.value.trim();
+                if (!current || current.startsWith('Jogador') || isCharacterName(current)) nomeElem.value = display;
+            }
+        }
     }
 
     document.querySelectorAll('input[name="simbolo1"]').forEach(r => r.addEventListener('change', () => handleChange('simbolo1')));

@@ -87,6 +87,14 @@ button:hover {
     background-color: #555;
 }
 
+/* botão de sair com cor de destaque */
+#btnSair {
+    background-color: #c62828;
+}
+#btnSair:hover {
+    background-color: #b71c1c;
+}
+
 footer {
     width: 100%;
     padding: 20px;
