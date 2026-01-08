@@ -261,7 +261,6 @@ function objectToRadioVal(obj) {
 }
 
 window.addEventListener('load', () => {
-    // Prefill from storage if available
     const displayNameMap = {
         x: 'X',
         o: 'O',

@@ -198,7 +198,6 @@ footer a:hover {
     box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
-/* style when option is disabled (already chosen by the other player) */
 .avatar input:disabled + img {
     opacity: 0.45;
     filter: grayscale(80%);
