@@ -1,11 +1,12 @@
-let tabuleiro = ['', '', '', '', '', '', '', '', ''];
-let jogadorAtual = 'X';
-let jogoAtivo = true;
+let tabuleiro = Array(9).fill('');
+let jogoAtivo = false; // começa após seleção de personagem
 let jogoPausado = false;
-let vitoriasX = 0;
-let vitoriasO = 0;
 let tempo = 30;
 let intervalo;
+
+const player1 = { name: 'Jogador 1', symbol: {type:'img', val:'./assets/x.svg'}, score: 0 };
+const player2 = { name: 'Jogador 2', symbol: {type:'img', val:'./assets/o.svg'}, score: 0 };
+let jogadorAtual = player1; // referência ao objeto do jogador atual
 
 const combinacoes = [
     [0, 1, 2],
@@ -22,26 +23,18 @@ function jogar(indice) {
     if (jogoPausado || !jogoAtivo) return;
     if (tabuleiro[indice] !== '') return;
 
-    tabuleiro[indice] = jogadorAtual;
+    tabuleiro[indice] = jogadorAtual.symbol;
     atualizarTela();
 
     if (verificarVitoria()) {
         jogoAtivo = false;
         clearInterval(intervalo);
-        
-        if (jogadorAtual === 'X') {
-            vitoriasX++;
-        } else {
-            vitoriasO++;
-        }
-        
-        alert(`Jogador ${jogadorAtual} venceu!`);
-        
-        if (vitoriasX === 2) {
-            alert('🎉 Jogador X é o CAMPEÃO! 🎉\nClique em Ok para jogar novamente.');
-            reiniciarJogo();
-        } else if (vitoriasO === 2) {
-            alert('🎉 Jogador O é o CAMPEÃO! 🎉\nClique em Ok para jogar novamente.');
+
+        jogadorAtual.score++;
+        alert(`${jogadorAtual.name} venceu!`);
+
+        if (jogadorAtual.score === 2) {
+            alert(`🎉 ${jogadorAtual.name} é o CAMPEÃO! 🎉\nClique em Ok para reiniciar o placar.`);
             reiniciarJogo();
         } else {
             setTimeout(proximaRodada, 1500);
@@ -57,26 +50,53 @@ function jogar(indice) {
         return;
     }
 
-    jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
+    jogadorAtual = jogadorAtual === player1 ? player2 : player1;
     atualizarTela();
     iniciarCronometro();
 }
 
 function verificarVitoria() {
-    return combinacoes.some(([a, b, c]) => 
-        tabuleiro[a] && 
-        tabuleiro[a] === tabuleiro[b] && 
+    return combinacoes.some(([a, b, c]) =>
+        tabuleiro[a] &&
+        tabuleiro[a] === tabuleiro[b] &&
         tabuleiro[a] === tabuleiro[c]
     );
 }
 
 function atualizarTela() {
     for (let i = 0; i < 9; i++) {
-        document.getElementById(`celula${i}`).textContent = tabuleiro[i];
+        const cel = document.getElementById(`celula${i}`);
+        const val = tabuleiro[i];
+        if (!val) {
+            cel.textContent = '';
+            } else if (val.type === 'img') {
+                // normalize path to ensure relative reference
+                const src = val.val.startsWith('./') ? val.val : `./${val.val.replace(/^\/+/, '')}`;
+                cel.innerHTML = `<img src="${src}" alt="simbolo">`;
+        } else {
+            cel.textContent = val.val;
+        }
     }
-    document.getElementById('jogadorVez').textContent = jogadorAtual;
-    document.getElementById('placarX').textContent = vitoriasX;
-    document.getElementById('placarO').textContent = vitoriasO;
+
+    // Mostrar símbolo e nome do jogador atual
+        const vezElem = document.getElementById('jogadorVez');
+        if (jogadorAtual.symbol.type === 'img') {
+            vezElem.innerHTML = `<img src="${jogadorAtual.symbol.val}" alt="simbolo" style="height:20px;vertical-align:middle;margin-right:6px"> ${jogadorAtual.name}`;
+        } else {
+            vezElem.textContent = `${jogadorAtual.symbol.val} ${jogadorAtual.name}`;
+        }
+
+    document.getElementById('placar1').textContent = player1.score;
+    document.getElementById('placar2').textContent = player2.score;
+    document.getElementById('player1Name').textContent = player1.name;
+    document.getElementById('player2Name').textContent = player2.name;
+        // atualizar símbolos no placar
+        const p1s = document.getElementById('player1Symbol');
+        const p2s = document.getElementById('player2Symbol');
+        if (player1.symbol.type === 'img') p1s.innerHTML = `<img src="${player1.symbol.val}" alt="p1" style="height:18px;vertical-align:middle">`;
+        else p1s.textContent = player1.symbol.val;
+        if (player2.symbol.type === 'img') p2s.innerHTML = `<img src="${player2.symbol.val}" alt="p2" style="height:18px;vertical-align:middle">`;
+        else p2s.textContent = player2.symbol.val;
 }
 
 
@@ -84,7 +104,6 @@ function iniciarCronometro() {
     tempo = 30;
     document.getElementById('tempo').textContent = tempo;
     clearInterval(intervalo);
-
     intervalo = setInterval(() => {
         if (!jogoPausado) {
             tempo--;
@@ -93,7 +112,7 @@ function iniciarCronometro() {
             if (tempo === 0) {
                 clearInterval(intervalo);
                 alert('Tempo esgotado! Próximo jogador!');
-                jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
+                jogadorAtual = jogadorAtual === player1 ? player2 : player1;
                 atualizarTela();
                 iniciarCronometro();
             }
@@ -116,8 +135,8 @@ function pausarRetomar() {
 }
 
 function proximaRodada() {
-    tabuleiro = ['', '', '', '', '', '', '', '', ''];
-    jogadorAtual = 'X';
+    tabuleiro = Array(9).fill('');
+    jogadorAtual = player1;
     jogoAtivo = true;
     jogoPausado = false;
 
@@ -129,13 +148,144 @@ function proximaRodada() {
 }
 
 function reiniciarJogo() {
-    vitoriasX = 0;
-    vitoriasO = 0;
+    player1.score = 0;
+    player2.score = 0;
     proximaRodada();
 }
 
-window.addEventListener('load', () => {
-    alert('Bem-vindo ao Jogo da Velha!\nMelhor de 3: Quem vencer 2 primeiro leva!');
+// Função para iniciar o jogo após seleção
+function começarJogo() {
+    const nome1 = document.getElementById('nome1').value.trim() || 'Jogador 1';
+    const nome2 = document.getElementById('nome2').value.trim() || 'Jogador 2';
+    const simbolo1 = document.querySelector('input[name="simbolo1"]:checked').value;
+    const simbolo2 = document.querySelector('input[name="simbolo2"]:checked').value;
+
+    if (simbolo1 === simbolo2) {
+        alert('Escolham símbolos diferentes para os dois jogadores.');
+        return;
+    }
+
+    player1.name = nome1;
+    player2.name = nome2;
+
+    // converter escolha em objeto símbolo
+    player1.symbol = simboloToObject(simbolo1);
+    player2.symbol = simboloToObject(simbolo2);
+
+    // Resetar tabuleiro e estado
+    tabuleiro = Array(9).fill('');
+    player1.score = 0;
+    player2.score = 0;
+    jogadorAtual = player1;
+    jogoAtivo = true;
+    jogoPausado = false;
+
+    // salvar escolhas
+    localStorage.setItem('jogoPlayers', JSON.stringify({player1:{name:player1.name,symbol:player1.symbol}, player2:{name:player2.name,symbol:player2.symbol}}));
+
+    document.getElementById('modalInicio').style.display = 'none';
     atualizarTela();
     iniciarCronometro();
+}
+
+function simboloToObject(key) {
+    const map = {
+        x: './assets/x.svg',
+        o: './assets/o.svg',
+        capitao: './assets/capitao-america.png',
+        aranha: './assets/homem-aranha.png',
+        hulk: './assets/hulk.jpg',
+        lanterna: './assets/lanterna-verde.webp',
+        morcego: './assets/morcego.jpg',
+        superman: './assets/superman.jpg'
+    };
+    if (map[key]) return {type:'img', val: map[key]};
+    return {type:'char', val:key};
+}
+
+function objectToRadioVal(obj) {
+    if (!obj) return null;
+    if (obj.type === 'char') return obj.val;
+    // find key by value
+    const map = {
+        './assets/x.svg':'x',
+        './assets/o.svg':'o',
+        './assets/capitao-america.png':'capitao',
+        './assets/homem-aranha.png':'aranha',
+        './assets/hulk.jpg':'hulk',
+        './assets/lanterna-verde.webp':'lanterna',
+        './assets/morcego.jpg':'morcego',
+        './assets/superman.jpg':'superman'
+    };
+    return map[obj.val] || obj.val;
+}
+
+window.addEventListener('load', () => {
+    // Prefill from storage if available
+    const saved = localStorage.getItem('jogoPlayers');
+    if (saved) {
+        try {
+            const data = JSON.parse(saved);
+            if (data.player1) {
+                document.getElementById('nome1').value = data.player1.name || '';
+                const val1 = objectToRadioVal(data.player1.symbol);
+                if (val1) {
+                    const r1 = document.querySelector(`input[name="simbolo1"][value="${val1}"]`);
+                    if (r1) r1.checked = true;
+                }
+            }
+            if (data.player2) {
+                document.getElementById('nome2').value = data.player2.name || '';
+                const val2 = objectToRadioVal(data.player2.symbol);
+                if (val2) {
+                    const r2 = document.querySelector(`input[name="simbolo2"][value="${val2}"]`);
+                    if (r2) r2.checked = true;
+                }
+            }
+        } catch(e) { /* ignore parse errors */ }
+    }
+
+    // Ajustar seleção para não permitir escolhas duplicadas
+    function updateDisabledOptions() {
+        const sel1 = document.querySelector('input[name="simbolo1"]:checked')?.value;
+        const sel2 = document.querySelector('input[name="simbolo2"]:checked')?.value;
+        document.querySelectorAll('input[name="simbolo1"]').forEach(r => r.disabled = (r.value === sel2));
+        document.querySelectorAll('input[name="simbolo2"]').forEach(r => r.disabled = (r.value === sel1));
+    }
+
+    // se prefill deixou ambos iguais, escolha alternativa para player2
+    const v1 = document.querySelector('input[name="simbolo1"]:checked')?.value;
+    const v2 = document.querySelector('input[name="simbolo2"]:checked')?.value;
+    if (v1 && v2 && v1 === v2) {
+        const alt = Array.from(document.querySelectorAll('input[name="simbolo2"]')).find(r => r.value !== v1);
+        if (alt) alt.checked = true;
+    }
+
+    // conectar ouvintes para atualizar estado de desabilitado e evitar duplicatas
+    function handleChange(origin) {
+        const sel1 = document.querySelector('input[name="simbolo1"]:checked')?.value;
+        const sel2 = document.querySelector('input[name="simbolo2"]:checked')?.value;
+
+        // se ambos iguais, mover o outro jogador para a primeira opção disponível
+        if (sel1 && sel2 && sel1 === sel2) {
+            if (origin === 'simbolo1') {
+                const alt = Array.from(document.querySelectorAll('input[name="simbolo2"]')).find(r => r.value !== sel1 && !r.disabled);
+                if (alt) alt.checked = true;
+            } else {
+                const alt = Array.from(document.querySelectorAll('input[name="simbolo1"]')).find(r => r.value !== sel2 && !r.disabled);
+                if (alt) alt.checked = true;
+            }
+        }
+
+        updateDisabledOptions();
+    }
+
+    document.querySelectorAll('input[name="simbolo1"]').forEach(r => r.addEventListener('change', () => handleChange('simbolo1')));
+    document.querySelectorAll('input[name="simbolo2"]').forEach(r => r.addEventListener('change', () => handleChange('simbolo2')));
+    updateDisabledOptions();
+
+    // Mostrar modal e conectar botão
+    document.getElementById('modalInicio').style.display = 'flex';
+    document.getElementById('btnComecar').addEventListener('click', começarJogo);
+    atualizarTela();
 });

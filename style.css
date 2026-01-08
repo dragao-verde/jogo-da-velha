@@ -104,3 +104,131 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+/* Modal de início */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 900px;
+    max-height: calc(100vh - 80px);
+    overflow: auto;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.player-setup {
+    display: flex;
+    gap: 40px; /* mais espaço entre Jogador 1 e 2 */
+    margin-top: 10px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.player-card {
+    flex: 1 1 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 280px;
+    box-sizing: border-box;
+}
+
+.opcoes label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.avatars {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 100%;
+}
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    flex: 0 1 90px; /* largura flexível que permite quebra sem sobressair */
+    text-align: center;
+}
+
+.avatar img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+    padding: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.avatar input { display: none; }
+
+.avatar input:checked + img, .avatar:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+/* style when option is disabled (already chosen by the other player) */
+.avatar input:disabled + img {
+    opacity: 0.45;
+    filter: grayscale(80%);
+    transform: none;
+    box-shadow: none;
+}
+.avatar input:disabled ~ .label-text {
+    opacity: 0.5;
+}
+}
+
+.label-text {
+    font-size: 0.82em;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+#nome1, #nome2 {
+    padding: 8px 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.celula {
+    font-size: 2.2em;
+}
+
+.celula img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
